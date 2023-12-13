@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import plugin from 'tailwindcss/plugin';
+// import plugin from 'tailwindcss/plugin';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -10,13 +10,13 @@ export default {
     },
     extend: {},
   },
-  plugins: [
-    plugin(function ({ addBase }) {
-      addBase({
-        button: {
-          'margin-bottom': '1rem',
-        },
-      });
-    }),
-  ],
+  // plugins: [
+  //   plugin(function ({ addBase }) {
+  //     addBase({
+  //       button: {
+  //         'margin-bottom': '.5rem',
+  //       },
+  //     });
+  //   }),
+  // ],
 };
