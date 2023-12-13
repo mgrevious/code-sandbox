@@ -58,7 +58,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
             editorRef.current = editor;
           }}
           value={initialValue}
-          //   height="50vh"
           language="javascript"
           theme={darkMode ? 'vs-dark' : 'light'}
           options={{

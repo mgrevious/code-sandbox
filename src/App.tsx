@@ -1,13 +1,11 @@
-import * as esbuild from 'esbuild-wasm';
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { resolvePlugin } from './plugins/resolve-plugin';
-import { fetchPlugin } from './plugins/fetch-plugin';
 import CodeEditor from './components/code-editor';
 import { classNames } from './utils/classNames';
+import bundler from './bundler';
 
 import 'bulmaswatch/lumen/bulmaswatch.min.css';
-import Preview from './components/Preview';
+import Preview from './components/preview';
 
 const App = () => {
   const [input, setInput] = useState('');
@@ -15,18 +13,8 @@ const App = () => {
   const [code, setCode] = useState('');
 
   const onClick = async () => {
-    if (!esbuild) {
-      return;
-    }
-    // use unpkg plugin to bundle, entry point is index.js
-    const result = await esbuild.build({
-      entryPoints: ['index.js'],
-      bundle: true,
-      write: false,
-      plugins: [resolvePlugin(), fetchPlugin(input)],
-      define: { 'process.env.NODE_ENV': "'production'", global: 'window' },
-    });
-    setCode(result.outputFiles[0].text);
+    const result = await bundler(input);
+    setCode(result);
   };
 
   // using iframe srcDoc and sandbox="" prevents access to browser storage like localStorage and cookies
