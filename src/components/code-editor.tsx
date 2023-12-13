@@ -22,7 +22,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       // get current value from editor
       const unformatted = editorRef.current.getValue();
       // format that value
-      const formatted = await prettier.format(unformatted, {
+      let formatted = await prettier.format(unformatted, {
         parser: 'babel',
         // plugin error fixed: https://github.com/prettier/prettier/issues/15473
         plugins: [parserBabel, prettierPluginEstree],
@@ -30,6 +30,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         singleQuote: true,
         useTabs: false,
       });
+
+      formatted = formatted.replace(/\n$/, '');
+
       // set the formatted value back in the editor
       editorRef.current.setValue(formatted);
     }

@@ -125,7 +125,7 @@ const App = () => {
           </div>
           <div>
             <textarea
-              className="border border-zinc-200 dark:border-zinc-700 h-60 rounded-sm mb-4 w-full dark:bg-zinc-900"
+              className="py-2 px-4 border border-zinc-200 dark:border-zinc-700 h-60 rounded-sm mb-4 w-full dark:bg-zinc-900"
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);
