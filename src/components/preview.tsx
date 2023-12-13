@@ -42,6 +42,9 @@ export const Preview: React.FC<PreviewProps> = ({ code }) => {
       iframe.contentWindow?.postMessage(code, '*');
     }
   }, [code]);
+
+  // using iframe srcDoc and sandbox="" prevents access to browser storage like localStorage and cookies
+  // allow-scripts is added to allow code execution within iframe script tags
   return (
     <iframe
       ref={iframeRef}
