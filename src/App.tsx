@@ -1,5 +1,5 @@
 import * as esbuild from 'esbuild-wasm';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Switch } from '@headlessui/react';
 import { resolvePlugin } from './plugins/resolve-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
@@ -7,60 +7,27 @@ import CodeEditor from './components/code-editor';
 import { classNames } from './utils/classNames';
 
 import 'bulmaswatch/lumen/bulmaswatch.min.css';
+import Preview from './components/Preview';
 
 const App = () => {
   const [input, setInput] = useState('');
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [code, setCode] = useState('');
 
   const onClick = async () => {
     if (!esbuild) {
       return;
     }
-
-    const iframe = iframeRef.current;
-    // Reset contents of srcDoc so that #root div exists
-    if (iframe) {
-      iframe.srcdoc = html;
-
-      // use unpkg plugin to bundle, entry point is index.js
-      const result = await esbuild.build({
-        entryPoints: ['index.js'],
-        bundle: true,
-        write: false,
-        plugins: [resolvePlugin(), fetchPlugin(input)],
-        define: { 'process.env.NODE_ENV': "'production'", global: 'window' },
-      });
-
-      // trigger message event via postMessage call
-      iframe.contentWindow?.postMessage(result.outputFiles[0].text, '*');
-    }
+    // use unpkg plugin to bundle, entry point is index.js
+    const result = await esbuild.build({
+      entryPoints: ['index.js'],
+      bundle: true,
+      write: false,
+      plugins: [resolvePlugin(), fetchPlugin(input)],
+      define: { 'process.env.NODE_ENV': "'production'", global: 'window' },
+    });
+    setCode(result.outputFiles[0].text);
   };
-
-  // Define html that will run inside iframe. Register message event listener on window
-  const html = `
-  <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <title>Output</title>
-      </head>
-      <body>
-        <div id="root"></div>
-        <script>
-          window.addEventListener('message', (event) => {
-            try {
-              eval(event.data);
-            } catch (err) {
-              const root = document.querySelector('#root');
-              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
-              console.log(err);
-            }
-          }, false);
-        </script>
-      </body>
-    </html>
-  `;
 
   // using iframe srcDoc and sandbox="" prevents access to browser storage like localStorage and cookies
   // allow-scripts is added to allow code execution within iframe script tags
@@ -125,7 +92,7 @@ const App = () => {
           </div>
           <div>
             <textarea
-              className="py-2 px-4 border border-zinc-200 dark:border-zinc-700 h-60 rounded-sm mb-4 w-full dark:bg-zinc-900"
+              className="py-2 px-4 border border-zinc-200 dark:border-zinc-700 h-60 rounded-sm mb-4 w-full dark:bg-zinc-900 dark:text-zinc-100"
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);
@@ -138,12 +105,7 @@ const App = () => {
               Submit
             </button>
           </div>
-          <iframe
-            ref={iframeRef}
-            sandbox="allow-scripts"
-            title="preview"
-            srcDoc={html}
-          />
+          <Preview code={code} />
         </div>
       </div>
     </div>
