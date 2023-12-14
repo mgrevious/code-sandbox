@@ -38,11 +38,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
   return (
-    <div className="relative group w-1/2 h-full">
+    <div className="relative group h-full w-full">
       <button
         className={`opacity-0 button button-format is-small ${
           darkMode ? 'is-white' : 'is-light'
-        } mb-4 absolute right-2 top-2 z-10 group-hover:opacity-100 transition-opacity duration-300`}
+        } mb-4 absolute right-5 top-2 z-10 group-hover:opacity-100 transition-opacity duration-300`}
         onClick={onFormatClick}
       >
         Format

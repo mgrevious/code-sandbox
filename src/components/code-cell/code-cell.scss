@@ -1,0 +1,13 @@
+/* Solution for iframe bug caused when drag event from react-resizable callback propogrates and is lost within the iframe*/
+.react-draggable-transparent-selection {
+  .iframe-wrapper {
+    &:after {
+      bottom: 0;
+      content: '';
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}

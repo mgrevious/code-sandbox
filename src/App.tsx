@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import { ResizableBox } from 'react-resizable';
 import CodeCell from './components/code-cell';
 import { classNames } from './utils/classNames';
 

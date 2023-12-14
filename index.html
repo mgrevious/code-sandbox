@@ -13,7 +13,7 @@
 
       const startService = async () => {
         await esbuild.initialize({
-          worker: true,
+          worker: false,
           wasmURL: 'https://unpkg.com/esbuild-wasm@0.19.8/esbuild.wasm',
         });
       };
