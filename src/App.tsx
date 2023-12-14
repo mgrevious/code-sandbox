@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
-import CodeCell from './components/code-cell';
+// import CodeCell from './components/code-cell';
+import TextEditor from './components/text-editor';
 import { classNames } from './utils/classNames';
 
 import 'bulmaswatch/lumen/bulmaswatch.min.css';
@@ -28,8 +29,16 @@ const App = () => {
                 setDarkModeEnabled(checked);
                 if (checked) {
                   document.documentElement.classList.add('dark');
+                  document.documentElement.setAttribute(
+                    'data-color-mode',
+                    'dark',
+                  );
                 } else {
                   document.documentElement.classList.remove('dark');
+                  document.documentElement.setAttribute(
+                    'data-color-mode',
+                    'light',
+                  );
                 }
               }}
               className={classNames(
@@ -53,8 +62,7 @@ const App = () => {
           </Switch.Group>
         </div>
         <div className="mt-12">
-          {' '}
-          <CodeCell darkMode={darkModeEnabled} />
+          <TextEditor />
           {/* <CodeCell darkMode={darkModeEnabled} /> */}
         </div>
       </div>

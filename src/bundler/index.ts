@@ -18,10 +18,14 @@ const bundle = async (rawCode: string) => {
       err: '',
     };
   } catch (err) {
-    return {
-      code: '',
-      err: err.message,
-    };
+    if (err instanceof Error) {
+      return {
+        code: '',
+        err: err.message,
+      };
+    } else {
+      throw err;
+    }
   }
 };
 
