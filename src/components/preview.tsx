@@ -47,6 +47,7 @@ export const Preview: React.FC<PreviewProps> = ({ code }) => {
   // allow-scripts is added to allow code execution within iframe script tags
   return (
     <iframe
+      className="bg-white w-1/2 h-full dark:bg-zinc-900 dark:text-zinc-100"
       ref={iframeRef}
       sandbox="allow-scripts"
       title="preview"
