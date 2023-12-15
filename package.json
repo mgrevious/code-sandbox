@@ -24,7 +24,8 @@
     "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-resizable": "^3.0.5"
+    "react-resizable": "^3.0.5",
+    "rehype-sanitize": "^6.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

@@ -1,0 +1,30 @@
+html {
+  .md-editor-custom-pre {
+    pre {
+      color: #444;
+    }
+  }
+  &.dark {
+    pre {
+      color: rgb(201, 209, 217);
+    }
+  }
+}
+
+.md-text-editor {
+  .w-md-editor-bar {
+    svg {
+      display: none;
+    }
+
+    & {
+      background: #37414b no-repeat 50%
+        url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+      bottom: -1px;
+      cursor: row-resize;
+      height: 11px;
+      position: relative;
+      width: 100%;
+    }
+  }
+}
