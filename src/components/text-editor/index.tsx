@@ -5,7 +5,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import './text-editor.scss';
 
 const TextEditor: React.FC = () => {
-  const [input, setInput] = useState('');
+  const [value, setValue] = useState('#Header');
   const [editing, setEditing] = useState(false);
   const editorRef = useRef<HTMLDivElement | null>(null);
 
@@ -32,12 +32,10 @@ const TextEditor: React.FC = () => {
     return (
       <div ref={editorRef}>
         <MDEditor
-          className="md-text-editor"
-          value={input}
+          className="md-editor-custom-pre md-text-editor"
+          value={value}
           onChange={(value) => {
-            if (value) {
-              setInput(value);
-            }
+            setValue(value || '');
           }}
           previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
         />
@@ -48,7 +46,10 @@ const TextEditor: React.FC = () => {
     <div onClick={() => setEditing(true)}>
       <div className="wmde-markdown-var"></div>
 
-      <MDEditor.Markdown className="md-text-editor" source="#Header" />
+      <MDEditor.Markdown
+        className="md-text-editor md-text-editor-markdown"
+        source={value}
+      />
     </div>
   );
 };

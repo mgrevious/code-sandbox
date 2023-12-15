@@ -1,9 +1,4 @@
 html {
-  .md-editor-custom-pre {
-    pre {
-      color: #444;
-    }
-  }
   &.dark {
     pre {
       color: rgb(201, 209, 217);
@@ -12,6 +7,18 @@ html {
 }
 
 .md-text-editor {
+  &-markdown {
+    padding: 1rem;
+  }
+
+  pre {
+    color: #444;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
   .w-md-editor-bar {
     svg {
       display: none;
