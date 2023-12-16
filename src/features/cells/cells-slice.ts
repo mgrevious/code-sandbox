@@ -81,3 +81,6 @@ const cellsSlice = createSlice({
 });
 
 export default cellsSlice.reducer;
+
+export const { moveCell, updateCell, deleteCell, insertCellBefore } =
+  cellsSlice.actions;
