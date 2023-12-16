@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react';
 import { Switch } from '@headlessui/react';
 // import CodeCell from './components/code-cell';
-import TextEditor from './components/text-editor';
+// import TextEditor from './components/text-editor';
 import { classNames } from './utils/classNames';
+import CellList from './components/cell-list';
 
 import 'bulmaswatch/lumen/bulmaswatch.min.css';
 
@@ -65,7 +66,8 @@ const App = () => {
           </Switch.Group>
         </div>
         <div className="mt-12">
-          <TextEditor />
+          <CellList />
+          {/* <TextEditor /> */}
           {/* <CodeCell darkMode={darkModeEnabled} /> */}
         </div>
       </div>

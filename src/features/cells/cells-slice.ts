@@ -6,7 +6,7 @@ import {
 import { Cell, CellTypes, randomId } from './types/cell';
 import { Direction, DirectionType } from './types/direction';
 
-interface CellState {
+export interface CellState {
   loading: boolean;
   error: string | null;
   order: string[];
@@ -44,6 +44,7 @@ const cellsSlice = createSlice({
         type: CellTypes;
       }>,
     ) => {
+      console.log('called...inside insertCellBefore');
       const cell: Cell = {
         content: '',
         type: action.payload.type,
