@@ -49,7 +49,7 @@ const Resizable: React.FC<ResizableProps> = ({
     };
   }, []);
 
-  if (direction === Direction.Horizontal) {
+  if (direction === Direction.HORIZONTAL) {
     resizableProps = {
       height: Infinity,
       maxConstraints: [innerWidth * 0.75, Infinity],

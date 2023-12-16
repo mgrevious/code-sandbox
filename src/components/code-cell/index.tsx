@@ -33,9 +33,9 @@ const CodeCell: React.FC<CodeCellProps> = ({ darkMode }) => {
 
   return (
     <>
-      <Resizable direction={Direction.Vertical} className="w-full">
+      <Resizable direction={Direction.VERTICAL} className="w-full">
         <>
-          <Resizable direction={Direction.Horizontal} className="">
+          <Resizable direction={Direction.HORIZONTAL} className="">
             <CodeEditor
               darkMode={darkMode}
               initialValue="const a = 1;"
