@@ -44,7 +44,6 @@ const cellsSlice = createSlice({
         type: CellTypes;
       }>,
     ) => {
-      console.log('called...inside insertCellBefore');
       const cell: Cell = {
         content: '',
         type: action.payload.type,
@@ -59,6 +58,8 @@ const cellsSlice = createSlice({
       } else {
         state.order.splice(foundIndex, 0, cell.id);
       }
+      // Add new cell to data object
+      state.data[cell.id] = cell;
     },
     moveCell: (
       state: CellState,

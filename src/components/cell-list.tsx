@@ -3,6 +3,9 @@ import CellListItem from './cell-list-item';
 import { insertCellBefore } from '../features/cells/cells-slice';
 import { useAppDispatch } from '../app/hooks';
 import { CellType } from '../features/cells/types/cell';
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState, store } from '../app/store';
+import { useSelector } from 'react-redux';
 import { selectOrderedCells } from '../features/cells/selectors';
 
 const CellList: React.FC = () => {
@@ -23,13 +26,17 @@ const CellList: React.FC = () => {
     );
   }, [dispatch]);
 
-  const selectedCells = selectOrderedCells();
+  const renderedCells = useSelector((state: RootState) =>
+    selectOrderedCells(state),
+  );
 
-  const renderedCells = selectedCells.map((cell, index) => (
-    <CellListItem key={index} cell={cell} />
-  ));
-
-  return <div>{renderedCells}</div>;
+  return (
+    <div>
+      {renderedCells.map((cell, index) => (
+        <CellListItem key={index} cell={cell} />
+      ))}
+    </div>
+  );
 };
 
 export default CellList;
