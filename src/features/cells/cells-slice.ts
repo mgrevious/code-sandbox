@@ -2,9 +2,10 @@ import {
   // ActionReducerMapBuilder,
   PayloadAction,
   createSlice,
+  nanoid,
 } from '@reduxjs/toolkit';
-import { Cell, CellTypes, randomId } from './types/cell';
-import { Direction, DirectionType } from './types/direction';
+import { Cell, CellTypes } from './types';
+import { Direction, DirectionType } from './types';
 
 export interface CellState {
   loading: boolean;
@@ -26,28 +27,28 @@ const cellsSlice = createSlice({
   name: 'cells',
   initialState,
   reducers: {
-    updateCell: (
+    updateCell(
       state: CellState,
       action: PayloadAction<{ id: string; content: string }>,
-    ) => {
+    ) {
       // Updating content of Cell located by payload id
       state.data[action.payload.id].content = action.payload.content;
     },
-    deleteCell: (state: CellState, action: PayloadAction<string>) => {
+    deleteCell(state: CellState, action: PayloadAction<string>) {
       state.order = state.order.filter((id) => id !== action.payload);
       delete state.data[action.payload];
     },
-    insertCellBefore: (
+    insertCellBefore(
       state: CellState,
       action: PayloadAction<{
         id: string | null;
         type: CellTypes;
       }>,
-    ) => {
+    ) {
       const cell: Cell = {
         content: '',
         type: action.payload.type,
-        id: randomId(),
+        id: nanoid(),
       };
       // find index of id before which the new item will be inserted
       const foundIndex = state.order.findIndex(
@@ -61,10 +62,10 @@ const cellsSlice = createSlice({
       // Add new cell to data object
       state.data[cell.id] = cell;
     },
-    moveCell: (
+    moveCell(
       state: CellState,
       action: PayloadAction<{ id: string; direction: Direction }>,
-    ) => {
+    ) {
       const { direction } = action.payload;
       const index = state.order.findIndex((id) => action.payload.id === id);
       const targetIndex =

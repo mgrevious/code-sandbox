@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import CodeEditor from '../../components/code-editor';
-import Preview from '../../components/preview';
-import bundle from '../../bundler';
+import CodeEditor from '../code-editor';
+import Preview from '../preview';
+import bundle from '../../../../bundler';
 import Resizable from '../resizable';
 
 import './code-cell.scss';
-import { Direction } from '../../constants/Direction';
+import { Direction } from '../../../../constants/Direction';
 
 interface CodeCellProps {
   darkMode: boolean;

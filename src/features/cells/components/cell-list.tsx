@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import CellListItem from './cell-list-item';
-import { insertCellBefore } from '../features/cells/cells-slice';
-import { useAppDispatch } from '../app/hooks';
-import { CellType } from '../features/cells/types/cell';
-import { createSelector } from '@reduxjs/toolkit';
-import { RootState, store } from '../app/store';
+import { insertCellBefore } from '../cells-slice';
+import { useAppDispatch } from '../../../app/hooks';
+import { CellType } from '../types/cell';
 import { useSelector } from 'react-redux';
-import { selectOrderedCells } from '../features/cells/selectors';
+import { selectOrderedCells } from '../selectors';
 
 const CellList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +24,7 @@ const CellList: React.FC = () => {
     );
   }, [dispatch]);
 
-  const renderedCells = useSelector((state: RootState) =>
-    selectOrderedCells(state),
-  );
+  const renderedCells = useSelector(selectOrderedCells);
 
   return (
     <div>

@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { ResizableBox, ResizableBoxProps } from 'react-resizable';
 
 import classes from './handle.module.scss';
-import { Direction } from '../../constants/Direction';
+import { Direction } from '../../../../constants/Direction';
 
 interface ResizableProps {
   className: string;

@@ -3,7 +3,7 @@ import { Switch } from '@headlessui/react';
 // import CodeCell from './components/code-cell';
 // import TextEditor from './components/text-editor';
 import { classNames } from './utils/classNames';
-import CellList from './components/cell-list';
+import CellList from './features/cells/components/cell-list';
 
 import 'bulmaswatch/lumen/bulmaswatch.min.css';
 
