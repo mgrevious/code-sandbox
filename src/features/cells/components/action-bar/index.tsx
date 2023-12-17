@@ -10,10 +10,10 @@ interface ActionBarProps {
 const ActionBar: React.FC<ActionBarProps> = ({ id }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="absolute -top-5 right-0 z-10 flex bg-white border-2 rounded-sm border-zinc-200 shadow-sm">
+    <div className="flex justify-end bg-white border-2 border-zinc-100">
       <button
         title="up"
-        className="h-8 w-10 flex items-center justify-center border-r-2 border-zinc-200"
+        className="h-7 w-10 flex items-center justify-center border-l-2 border-r-2 border-zinc-100"
         onClick={() => {
           dispatch(moveCell({ id, direction: DirectionType.UP }));
         }}
@@ -22,7 +22,7 @@ const ActionBar: React.FC<ActionBarProps> = ({ id }) => {
       </button>
       <button
         title="up"
-        className="h-8 w-10 flex items-center justify-center border-r-2 border-zinc-200"
+        className="h-7 w-10 flex items-center justify-center border-r-2 border-zinc-100"
         onClick={() => {
           dispatch(moveCell({ id, direction: DirectionType.DOWN }));
         }}
@@ -31,7 +31,7 @@ const ActionBar: React.FC<ActionBarProps> = ({ id }) => {
       </button>
       <button
         title="up"
-        className="h-8 w-10 items-center justify-center border-zinc-200"
+        className="h-7 w-10 items-center justify-center border-zinc-100"
         onClick={() => {
           dispatch(deleteCell(id));
         }}
