@@ -3,16 +3,17 @@ import CodeEditor from '../code-editor';
 import Preview from '../preview';
 import bundle from '../../../../bundler';
 import Resizable from '../resizable';
+import { updateCell } from '../../cells-slice';
+import { Direction } from '../../../../constants/Direction';
+import { Cell } from '../../types';
 
 import './code-cell.scss';
-import { Direction } from '../../../../constants/Direction';
 
 interface CodeCellProps {
-  darkMode: boolean;
+  cell: Cell;
 }
 
-const CodeCell: React.FC<CodeCellProps> = ({ darkMode }) => {
-  const [input, setInput] = useState('');
+const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const [code, setCode] = useState('');
   const [err, setErr] = useState('');
 
@@ -21,7 +22,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ darkMode }) => {
     // 1) useEffect is called on every input state change, and time is cleared automatically
     // 2) Once user stops typing and 1 sec has elapsed, bundle will execute
     const timer = setTimeout(async () => {
-      const result = await bundle(input);
+      const result = await bundle(cell.content);
       setCode(result.code);
       setErr(result.err);
     }, 1000);
@@ -29,7 +30,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ darkMode }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [input]);
+  }, [cell.content]);
 
   return (
     <>
@@ -37,11 +38,10 @@ const CodeCell: React.FC<CodeCellProps> = ({ darkMode }) => {
         <>
           <Resizable direction={Direction.HORIZONTAL} className="">
             <CodeEditor
-              darkMode={darkMode}
-              initialValue="const a = 1;"
+              initialValue={cell.content}
               onChange={(value) => {
                 if (value) {
-                  setInput(value);
+                  updateCell({ id: cell.id, content: value });
                 }
               }}
             />

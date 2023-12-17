@@ -4,18 +4,14 @@ import * as prettier from 'prettier';
 import { useRef } from 'react';
 import parserBabel from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
-
+import { useTypedSelector } from '../../../app/hooks';
 interface CodeEditorProps {
-  darkMode: boolean;
   initialValue: string;
   onChange: OnChange;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({
-  initialValue,
-  onChange,
-  darkMode,
-}) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
+  const darkModeEnabled = useTypedSelector((state) => state.cells.darkMode);
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const onFormatClick = async () => {
     if (editorRef.current) {
@@ -41,14 +37,16 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     <div className="relative group h-full w-full">
       <button
         className={`opacity-0 button button-format is-small ${
-          darkMode ? 'is-white' : 'is-light'
+          darkModeEnabled ? 'is-white' : 'is-light'
         } mb-4 absolute right-5 top-2 z-10 group-hover:opacity-100 transition-opacity duration-300`}
         onClick={onFormatClick}
       >
         Format
       </button>
       <Editor
-        className={`border ${darkMode ? 'border-zinc-900' : 'border-zinc-200'}`}
+        className={`border ${
+          darkModeEnabled ? 'border-zinc-900' : 'border-zinc-200'
+        }`}
         onChange={onChange}
         onMount={(editor: editor.IStandaloneCodeEditor) => {
           editor.updateOptions({ tabSize: 2 });
@@ -56,7 +54,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         }}
         value={initialValue}
         language="javascript"
-        theme={darkMode ? 'vs-dark' : 'light'}
+        theme={darkModeEnabled ? 'vs-dark' : 'light'}
         options={{
           wordWrap: 'on',
           minimap: { enabled: false }, // hide mini map positioned on the right of the editor

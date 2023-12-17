@@ -1,14 +1,15 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Switch } from '@headlessui/react';
-// import CodeCell from './components/code-cell';
-// import TextEditor from './components/text-editor';
 import { classNames } from './utils/classNames';
 import CellList from './features/cells/components/cell-list';
+import { useAppDispatch, useTypedSelector } from './app/hooks';
+import { enableDarkMode } from './features/cells/cells-slice';
 
 import 'bulmaswatch/lumen/bulmaswatch.min.css';
 
 const App = () => {
-  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  const dispatch = useAppDispatch();
+  const darkModeEnabled = useTypedSelector((state) => state.cells.darkMode);
   const darkModeRef = useRef<HTMLDivElement | null>(null);
 
   return (
@@ -29,7 +30,7 @@ const App = () => {
               <Switch
                 checked={darkModeEnabled}
                 onChange={(checked) => {
-                  setDarkModeEnabled(checked);
+                  dispatch(enableDarkMode());
                   if (checked) {
                     document.documentElement.classList.add('dark');
                     document.documentElement.setAttribute(

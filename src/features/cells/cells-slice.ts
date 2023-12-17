@@ -8,6 +8,7 @@ import { Cell, CellTypes } from './types';
 import { Direction, DirectionType } from './types';
 
 export interface CellState {
+  darkMode: boolean;
   loading: boolean;
   error: string | null;
   order: string[];
@@ -17,16 +18,20 @@ export interface CellState {
 }
 
 const initialState: CellState = {
-  loading: false,
-  error: null,
-  order: [],
+  darkMode: false,
   data: {},
+  error: null,
+  loading: false,
+  order: [],
 };
 
 const cellsSlice = createSlice({
   name: 'cells',
   initialState,
   reducers: {
+    enableDarkMode(state: CellState) {
+      state.darkMode = !state.darkMode;
+    },
     updateCell(
       state: CellState,
       action: PayloadAction<{ id: string; content: string }>,
@@ -85,5 +90,10 @@ const cellsSlice = createSlice({
 
 export default cellsSlice.reducer;
 
-export const { moveCell, updateCell, deleteCell, insertCellBefore } =
-  cellsSlice.actions;
+export const {
+  moveCell,
+  updateCell,
+  deleteCell,
+  insertCellBefore,
+  enableDarkMode,
+} = cellsSlice.actions;

@@ -3,9 +3,16 @@ import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 
 import './text-editor.scss';
+import { Cell } from '../../types';
+import { useAppDispatch } from '../../../../app/hooks';
+import { updateCell } from '../../cells-slice';
 
-const TextEditor: React.FC = () => {
-  const [value, setValue] = useState('#Header');
+interface TextEditorProps {
+  cell: Cell;
+}
+
+const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
+  const dispatch = useAppDispatch();
   const [editing, setEditing] = useState(false);
   const editorRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,9 +40,9 @@ const TextEditor: React.FC = () => {
       <div ref={editorRef}>
         <MDEditor
           className="md-editor-custom-pre md-text-editor"
-          value={value}
+          value={cell.content}
           onChange={(value) => {
-            setValue(value || '');
+            dispatch(updateCell({ id: cell.id, content: value || '' }));
           }}
           previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
         />
@@ -48,7 +55,7 @@ const TextEditor: React.FC = () => {
 
       <MDEditor.Markdown
         className="md-text-editor md-text-editor-markdown"
-        source={value}
+        source={cell.content || 'Click to edit'}
       />
     </div>
   );
