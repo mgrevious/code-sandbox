@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import CellListItem from './cell-list-item';
-import { insertCellBefore } from '../cells-slice';
-import { useAppDispatch } from '../../../app/hooks';
-import { CellType } from '../types/cell';
 import { useSelector } from 'react-redux';
+
+import { useAppDispatch } from '../../../app/hooks';
+import { insertCellBefore } from '../cells-slice';
 import { selectOrderedCells } from '../selectors';
+import { CellType } from '../types/cell';
+import CellListItem from './CellListItem';
 
 const CellList: React.FC = () => {
   const dispatch = useAppDispatch();

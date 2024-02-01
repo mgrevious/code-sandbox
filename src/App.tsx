@@ -1,11 +1,11 @@
-import { useRef } from 'react';
 import { Switch } from '@headlessui/react';
-import { classNames } from './utils/classNames';
-import CellList from './features/cells/components/cell-list';
+import 'bulmaswatch/lumen/bulmaswatch.min.css';
+import { useRef } from 'react';
+
 import { useAppDispatch, useTypedSelector } from './app/hooks';
 import { enableDarkMode } from './features/cells/cells-slice';
-
-import 'bulmaswatch/lumen/bulmaswatch.min.css';
+import CellList from './features/cells/components/CellList';
+import { classNames } from './utils/classNames';
 
 const App = () => {
   const dispatch = useAppDispatch();

@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
-
-import './text-editor.scss';
 import { Cell } from '../../types';
 import { useAppDispatch } from '../../../../app/hooks';
 import { updateCell } from '../../cells-slice';
+
+import './TextEditor.scss';
 
 interface TextEditorProps {
   cell: Cell;
@@ -50,14 +50,14 @@ const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
     );
   }
   return (
-    <div onClick={() => setEditing(true)}>
+    <button type="button" onClick={() => setEditing(true)}>
       <div className="wmde-markdown-var"></div>
 
       <MDEditor.Markdown
-        className="md-text-editor md-text-editor-markdown"
+        className="ml-3 mt-2 button md-text-editor md-text-editor-markdown"
         source={cell.content || 'Click to edit'}
       />
-    </div>
+    </button>
   );
 };
 

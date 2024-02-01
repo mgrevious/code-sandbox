@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useAppDispatch } from '../../../../app/hooks';
 import { deleteCell, moveCell } from '../../cells-slice';
 import { DirectionType } from '../../types';

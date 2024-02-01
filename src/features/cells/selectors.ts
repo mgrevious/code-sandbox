@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from '../../app/store';
 
 // Had to use createSelector to memoize selector function to prevent unnecessary re-renders

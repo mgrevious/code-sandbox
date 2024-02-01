@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import CodeEditor from '../code-editor';
-import Preview from '../preview';
-import bundle from '../../../../bundler';
-import Resizable from '../resizable';
-import { updateCell } from '../../cells-slice';
-import { Direction } from '../../../../constants/Direction';
-import { Cell } from '../../types';
+import React, { useEffect, useState } from 'react';
 
-import './code-cell.scss';
+import bundle from '../../../../bundler';
+import { Direction } from '../../../../constants/Direction';
+import { updateCell } from '../../cells-slice';
+import { Cell } from '../../types';
+import CodeEditor from '../CodeEditor';
+import Preview from '../Preview';
+import Resizable from '../Resizable';
+import './CodeCell.scss';
 
 interface CodeCellProps {
   cell: Cell;

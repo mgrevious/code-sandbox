@@ -1,10 +1,12 @@
 import Editor, { OnChange } from '@monaco-editor/react';
 import { editor } from 'monaco-editor';
 import * as prettier from 'prettier';
-import { useRef } from 'react';
 import parserBabel from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
+import { useRef } from 'react';
+
 import { useTypedSelector } from '../../../app/hooks';
+
 interface CodeEditorProps {
   initialValue: string;
   onChange: OnChange;
