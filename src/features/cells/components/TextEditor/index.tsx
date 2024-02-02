@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import MDEditor from '@uiw/react-md-editor';
+import React, { useEffect, useRef, useState } from 'react';
 import rehypeSanitize from 'rehype-sanitize';
-import { Cell } from '../../types';
+
+import MDEditor from '@uiw/react-md-editor';
+
 import { useAppDispatch } from '../../../../app/hooks';
 import { updateCell } from '../../cells-slice';
-
+import { Cell } from '../../types';
 import './TextEditor.scss';
 
 interface TextEditorProps {

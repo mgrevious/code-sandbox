@@ -3,7 +3,7 @@ import { editor } from 'monaco-editor';
 import * as prettier from 'prettier';
 import parserBabel from 'prettier/plugins/babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { useTypedSelector } from '../../../app/hooks';
 
@@ -12,27 +12,52 @@ interface CodeEditorProps {
   onChange: OnChange;
 }
 
+function formatByPrettier(
+  ref: React.MutableRefObject<editor.IStandaloneCodeEditor | null>,
+): Promise<string> {
+  // get current value from editor
+  const unformatted = ref && ref.current ? ref.current.getValue() : '';
+  // format that value
+  return prettier.format(unformatted, {
+    parser: 'babel',
+    // plugin error fixed: https://github.com/prettier/prettier/issues/15473
+    plugins: [parserBabel, prettierPluginEstree],
+    semi: true,
+    singleQuote: true,
+    useTabs: false,
+  });
+}
+
 const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
   const darkModeEnabled = useTypedSelector((state) => state.cells.darkMode);
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
-  const onFormatClick = async () => {
+  const onFormatClick = () => {
     if (editorRef.current) {
-      // get current value from editor
-      const unformatted = editorRef.current.getValue();
-      // format that value
-      let formatted = await prettier.format(unformatted, {
-        parser: 'babel',
-        // plugin error fixed: https://github.com/prettier/prettier/issues/15473
-        plugins: [parserBabel, prettierPluginEstree],
-        semi: true,
-        singleQuote: true,
-        useTabs: false,
-      });
+      // // get current value from editor
+      // const unformatted = editorRef.current.getValue();
+      // // format that value
+      // let formatted = await prettier.format(unformatted, {
+      //   parser: 'babel',
+      //   // plugin error fixed: https://github.com/prettier/prettier/issues/15473
+      //   plugins: [parserBabel, prettierPluginEstree],
+      //   semi: true,
+      //   singleQuote: true,
+      //   useTabs: false,
+      // });
 
-      formatted = formatted.replace(/\n$/, '');
-
-      // set the formatted value back in the editor
-      editorRef.current.setValue(formatted);
+      // formatted = formatted.replace(/\n$/, '');
+      formatByPrettier(editorRef)
+        .then((result) => {
+          let formatted = result;
+          if (formatted) {
+            formatted = formatted.replace(/\n$/, '');
+            // set the formatted value back in the editor
+            if (editorRef?.current) {
+              editorRef.current.setValue(formatted);
+            }
+          }
+        })
+        .catch(console.error);
     }
   };
   return (

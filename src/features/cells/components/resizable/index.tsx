@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { ResizableBox, ResizableBoxProps } from 'react-resizable';
 
-import classes from './handle.module.scss';
 import { Direction } from '../../../../constants/Direction';
+import classes from './handle.module.scss';
 
 interface ResizableProps {
   className: string;
@@ -47,7 +47,7 @@ const Resizable: React.FC<ResizableProps> = ({
     return () => {
       window.removeEventListener('resize', listener);
     };
-  }, []);
+  }, [width]);
 
   if (direction === Direction.HORIZONTAL) {
     resizableProps = {
